@@ -15,6 +15,7 @@ states = ["Alabama",
           "Connecticut",
           "Delaware",
           "Flordia",
+          "Georgia",
           "Hawaii",
           "Idaho",
           "Illonois",
@@ -23,11 +24,13 @@ states = ["Alabama",
           "Kansas",
           "Kentucky",
           "Louisiana",
+          "Maine",
           "Maryland",
           "Massachusetts"
           "Michigan",
-          "Minnesita",
+          "Minnesota",
           "Mississipi",
+          "Missouri",
           "Montana",
           "Nebraska",
           "Nevada",
@@ -35,15 +38,49 @@ states = ["Alabama",
           "New_Jersey",
           "New_Mexico",
           "New_York",
+          "North_Carolina",
+          "North_Dakota",
+          "Ohio"
+          "Oklahoma",
+          "Oregon",
+          "Pennsylvania",
+          "Rhode_Island",
+          "South_Carolina",
+          "South_Dakota",
+          "Tennesee",
+          "Texas",
+          "Utah",
+          "Vermont",
+          "Virgina",
+          "Washington",
+          "West_Virgina",
+          "Wisconsin",
+          "Wyoming"]
+                                                                                         
           
 
-
-flag = StateFlag("Idaho", [size[0]/2,50],.75)
+s=0
+flag = StateFlag(states[s], [size[0]/2,50],.75)
 
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit();
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RIGHT:
+                s+=1
+                try:
+                    flag = StateFlag(states[s], [size[0]/2,50],.75)
+                except:
+                    s-=1
+            if event.key == pygame.K_LEFT:
+                s-=1
+                try:
+                    flag = StateFlag(states[s], [size[0]/2,50],.75)
+                except:
+                    s+=1
+            
+            
     
     
     screen.fill((181, 181, 181))  
