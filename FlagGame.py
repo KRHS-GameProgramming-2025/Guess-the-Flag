@@ -14,7 +14,7 @@ states = ["Alabama",
           "Colorado",
           "Connecticut",
           "Delaware",
-          "Flordia",
+          "Florida",
           "Georgia",
           "Hawaii",
           "Idaho",
@@ -40,20 +40,20 @@ states = ["Alabama",
           "New_York",
           "North_Carolina",
           "North_Dakota",
-          "Ohio"
+          "Ohio",
           "Oklahoma",
           "Oregon",
           "Pennsylvania",
           "Rhode_Island",
           "South_Carolina",
           "South_Dakota",
-          "Tennesee",
+          "Tennessee",
           "Texas",
           "Utah",
           "Vermont",
-          "Virgina",
+          "Virginia",
           "Washington",
-          "West_Virgina",
+          "West_Virginia",
           "Wisconsin",
           "Wyoming"]
                                                                                          
@@ -72,12 +72,14 @@ while True:
                 try:
                     flag = StateFlag(states[s], [size[0]/2,50],.75)
                 except:
+                    print(states[s])
                     s-=1
             if event.key == pygame.K_LEFT:
                 s-=1
                 try:
                     flag = StateFlag(states[s], [size[0]/2,50],.75)
                 except:
+                    print(states[s])
                     s+=1
             
             
@@ -87,4 +89,3 @@ while True:
     screen.blit(flag.image,flag.rect)
     pygame.display.flip()
     clock.tick(60)
-    print(clock.get_fps() )
