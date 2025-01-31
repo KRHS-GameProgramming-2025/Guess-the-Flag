@@ -72,14 +72,12 @@ while True:
                 try:
                     flag = StateFlag(states[s], [size[0]/2,50],.75)
                 except:
-                    print(states[s])
                     s-=1
             if event.key == pygame.K_LEFT:
                 s-=1
                 try:
                     flag = StateFlag(states[s], [size[0]/2,50],.75)
                 except:
-                    print(states[s])
                     s+=1
             
             
