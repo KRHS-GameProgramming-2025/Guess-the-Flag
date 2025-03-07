@@ -50,27 +50,54 @@ for flag in flags:
 s=0
 flag = flags[s]
 buttons=buildButtons(flag.name, flags)
-
+clicked = False
+score = 0
 
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit();
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RIGHT:
-                s+=1
-                try:
-                    flag = flags[s] 
-                    buttons=buildButtons(flag.name, flags)
-                except:
-                    s=0
-            if event.key == pygame.K_LEFT:
-                s-=1
-                try:
-                    flag = flags[s]
-                    buttons=buildButtons(flag.name, flags)
-                except:
-                    s= len(flags)-1
+        # ~ if event.type == pygame.KEYDOWN:
+            # ~ if event.key == pygame.K_RIGHT:
+                # ~ s+=1
+                # ~ try:
+                    # ~ flag = flags[s] 
+                    # ~ buttons=buildButtons(flag.name, flags)
+                # ~ except:
+                    # ~ s=0
+            # ~ if event.key == pygame.K_LEFT:
+                # ~ s-=1
+                # ~ try:
+                    # ~ flag = flags[s]
+                    # ~ buttons=buildButtons(flag.name, flags)
+                # ~ except:
+                    # ~ s= len(flags)-1
+        if event.type == pygame.MOUSEMOTION:
+            for button in buttons:
+                button.collidePoint(event.pos, clicked)
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1:
+                clicked = True
+                for button in buttons:
+                    button.collidePoint(event.pos, clicked)
+        if event.type == pygame.MOUSEBUTTONUP:
+            if event.button == 1:
+                clicked = False
+                for button in buttons:
+                    if button.collidePoint(event.pos, clicked):
+                        if button.name == flag.name:
+                            score += 1
+                        s+=1
+                        try:
+                            flag = flags[s] 
+                            buttons=buildButtons(flag.name, flags)
+                        except:
+                            sys.exit()
+                        print(score)
+                            
+                
+            
+            
             
             
     
