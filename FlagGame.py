@@ -1,6 +1,7 @@
 import pygame, sys, math, random, os
 from FlagDisplay import*
 from Button import*
+from hud import*
 pygame.init()
 
 clock = pygame.time.Clock();
@@ -34,13 +35,13 @@ def buildButtons(answer,flaglist):
         else:
             text = answer
             while text in buttonTexts:
-                num = random.randint(0, len(flaglist))
+                num = random.randint(0, len(flaglist)-1)
                 text = flaglist[num].name
             buttonTexts += [text]
             buttons += [Button(text, locations[i],.5)]
     return buttons
 
-flags = getFlags("State Flags")                                                                                
+flags = getFlags("Europe Flags")                                                                                
 random.shuffle(flags)
 flagNames = []
 for flag in flags:
@@ -51,7 +52,8 @@ s=0
 flag = flags[s]
 buttons=buildButtons(flag.name, flags)
 clicked = False
-score = 0
+points = 0
+score = Hud ("Score: ", points, [0,0])
 
 while True:
     for event in pygame.event.get():
@@ -86,14 +88,15 @@ while True:
                 for button in buttons:
                     if button.collidePoint(event.pos, clicked):
                         if button.name == flag.name:
-                            score += 1
+                            points += 1
+                            score.update(points)
                         s+=1
                         try:
                             flag = flags[s] 
                             buttons=buildButtons(flag.name, flags)
                         except:
+                            print("Done")
                             sys.exit()
-                        print(score)
                             
                 
             
@@ -106,5 +109,6 @@ while True:
     screen.blit(flag.image,flag.rect)
     for button in buttons:
         screen.blit(button.image, button.rect)
+    screen.blit(score.image, score.rect)
     pygame.display.flip()
     clock.tick(60)
