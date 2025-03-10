@@ -60,7 +60,8 @@ flag = flags[s]
 buttons=buildButtons(flag.name, flags)
 clicked = False
 points = 0
-score = Hud ("Score: ", points, [0,0])
+score = Hud("Score: ", points, "right", [0,0])
+progress = Hud ("/"+str(len(flags)), s, "left", [968,0])
 
 while True:
     for event in pygame.event.get():
@@ -101,6 +102,7 @@ while True:
                         else:
                             wrong.play()
                         s+=1
+                        progress.update(s)
                         try:
                             flag = flags[s] 
                             buttons=buildButtons(flag.name, flags)
@@ -124,5 +126,6 @@ while True:
     for button in buttons:
         screen.blit(button.image, button.rect)
     screen.blit(score.image, score.rect)
+    screen.blit(progress.image, progress.rect)
     pygame.display.flip()
     clock.tick(60)
