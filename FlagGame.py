@@ -8,6 +8,13 @@ clock = pygame.time.Clock();
 size = [968, 1000]
 screen = pygame.display.set_mode(size)
 
+correct=pygame.mixer.Sound("Sound/Correct.mp3")
+wrong=pygame.mixer.Sound("Sound/Wrong.mp3")
+lose=pygame.mixer.Sound("Sound/Booooooooooo.mp3")
+win=pygame.mixer.Sound("Sound/Winning Game.mp3")
+
+winThreshold = .80
+
 def getFlags(kind):
     if kind == "State Flags":
         path = "Art/StateFlags"
@@ -41,7 +48,7 @@ def buildButtons(answer,flaglist):
             buttons += [Button(text, locations[i],.5)]
     return buttons
 
-flags = getFlags("Europe Flags")                                                                                
+flags = getFlags("State Flags")                                                                                
 random.shuffle(flags)
 flagNames = []
 for flag in flags:
@@ -90,13 +97,20 @@ while True:
                         if button.name == flag.name:
                             points += 1
                             score.update(points)
+                            correct.play()
+                        else:
+                            wrong.play()
                         s+=1
                         try:
                             flag = flags[s] 
                             buttons=buildButtons(flag.name, flags)
                         except:
-                            print("Done")
-                            sys.exit()
+                            if points/len(flags) > winThreshold:
+                                print("Winner")
+                                win.play()
+                            else:
+                                lose.play()
+                                print("lose")
                             
                 
             
