@@ -1,11 +1,19 @@
 import pygame, sys, math, random, os
 from FlagDisplay import*
 from Button import*
+from hud import*
 pygame.init()
 
 clock = pygame.time.Clock();
 size = [968, 1000]
 screen = pygame.display.set_mode(size)
+
+correct=pygame.mixer.Sound("Sound/Correct.mp3")
+wrong=pygame.mixer.Sound("Sound/Wrong.mp3")
+lose=pygame.mixer.Sound("Sound/Booooooooooo.mp3")
+win=pygame.mixer.Sound("Sound/Winning Game.mp3")
+
+winThreshold = .80
 
 def getFlags(kind):
     if kind == "State Flags":
@@ -34,7 +42,7 @@ def buildButtons(answer,flaglist):
         else:
             text = answer
             while text in buttonTexts:
-                num = random.randint(0, len(flaglist))
+                num = random.randint(0, len(flaglist)-1)
                 text = flaglist[num].name
             buttonTexts += [text]
             buttons += [Button(text, locations[i],.5)]
@@ -51,7 +59,9 @@ s=0
 flag = flags[s]
 buttons=buildButtons(flag.name, flags)
 clicked = False
-score = 0
+points = 0
+score = Hud("Score: ", points, "right", [0,0])
+progress = Hud ("/"+str(len(flags)), s, "left", [968,0])
 
 while True:
     for event in pygame.event.get():
@@ -86,14 +96,23 @@ while True:
                 for button in buttons:
                     if button.collidePoint(event.pos, clicked):
                         if button.name == flag.name:
-                            score += 1
+                            points += 1
+                            score.update(points)
+                            correct.play()
+                        else:
+                            wrong.play()
                         s+=1
+                        progress.update(s)
                         try:
                             flag = flags[s] 
                             buttons=buildButtons(flag.name, flags)
                         except:
-                            sys.exit()
-                        print(score)
+                            if points/len(flags) > winThreshold:
+                                print("Winner")
+                                win.play()
+                            else:
+                                lose.play()
+                                print("lose")
                             
                 
             
@@ -106,5 +125,7 @@ while True:
     screen.blit(flag.image,flag.rect)
     for button in buttons:
         screen.blit(button.image, button.rect)
+    screen.blit(score.image, score.rect)
+    screen.blit(progress.image, progress.rect)
     pygame.display.flip()
     clock.tick(60)
