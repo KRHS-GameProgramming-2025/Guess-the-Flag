@@ -148,11 +148,11 @@ while True:
                                 if points/len(flags) > winThreshold:
                                     print("Winner")
                                     win.play()
-                                    mode = "win"
+                                    mode = "Win"
                                 else:
                                     lose.play()
                                     print("lose")
-                                    mode = "lose"
+                                    mode = "Lose"
 
         screen.fill((181, 181, 181))  
         screen.blit(flag.image,flag.rect)
@@ -165,9 +165,9 @@ while True:
         
     bgimage=pygame.image.load("Art/Screens/YOU WIN.png")
     bgrect=bgimage.get_rect()
-    buttons = [Button("Play Again",[968/2,200], .5)]
+    buttons = [Button("Play Again",[968/2,800], .5)]
     
-    while mode =="win":
+    while mode =="Win":
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit();
@@ -184,7 +184,37 @@ while True:
                     clicked = False
                     for button in buttons:
                         if button.collidePoint(event.pos, clicked):
-                            mode = "start"
+                            mode = "Start"
+        
+        screen.fill((181, 181, 181))  
+        screen.blit(bgimage,bgrect)
+        for button in buttons:
+            screen.blit(button.image, button.rect)
+        pygame.display.flip()
+        clock.tick(60)
+    
+    bgimage=pygame.image.load("Art/Screens/YOU LOST.png")
+    bgrect=bgimage.get_rect()
+    buttons = [Button("Play Again",[968/2,800], .5)]
+    
+    while mode =="Lose":
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit();
+            if event.type == pygame.MOUSEMOTION:
+                for button in buttons:
+                    button.collidePoint(event.pos, clicked)
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    clicked = True
+                    for button in buttons:
+                        button.collidePoint(event.pos, clicked)
+            if event.type == pygame.MOUSEBUTTONUP:
+                if event.button == 1:
+                    clicked = False
+                    for button in buttons:
+                        if button.collidePoint(event.pos, clicked):
+                            mode = "Start"
         
         screen.fill((181, 181, 181))  
         screen.blit(bgimage,bgrect)
