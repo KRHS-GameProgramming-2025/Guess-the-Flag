@@ -2,8 +2,15 @@ import pygame, sys, math
 
 class Button():
     def __init__(self,name,startpos=[0,0], scale=1):
-        font=pygame.font.Font(None,125)
+        if len(name)<=27-12:
+            font=pygame.font.Font(None,125)
+        elif len(name)<=35-12:
+            font=pygame.font.Font(None,100)
+        else:
+            font=pygame.font.Font(None,60)
         self.name = name
+        
+       
         
         self.normalImage = pygame.image.load("Art/Button/Button.png")
         self.rect = self.normalImage.get_rect(center=startpos)

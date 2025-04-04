@@ -17,10 +17,7 @@ winThreshold = .80
 clicked = False
 
 def getFlags(kind):
-    if kind == "State Flags":
-        path = "Art/StateFlags"
-    elif kind == "Europe Flags":
-        path = "Art/EuropeFlags"
+    path = "Art/" + kind.replace(" ", "")
     files = os.listdir(path)
     
     flags = []
@@ -56,8 +53,17 @@ Version=""
 while True:
     bgimage=pygame.image.load("Art/Screens/flagger.png")
     bgrect=bgimage.get_rect()
-    buttons = [Button("State Flags",[968/2,200], .5),
-               Button("Europe Flags",[968/2,300], .5)]
+    buttons = [Button("State Flags",[968/4,200], .5),
+               Button("America Flags",[968/4, 300], .5),
+               Button("Europe Flags",[968/4,400], .5),
+               Button("WWII Flags", [968/4, 500], .5),
+               
+               Button("Asia Flags",[968/4*3, 200], .5),
+               Button("Africa Flags", [968/4*3,300], .5),
+               Button("Oceania Flags",[968/4*3,400], .5),
+               
+               
+               ]
     
     while mode =="Start":
         for event in pygame.event.get():
