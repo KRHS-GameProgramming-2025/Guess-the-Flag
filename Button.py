@@ -4,7 +4,7 @@ class Button():
     def __init__(self,name,startpos=[0,0], scale=1):
         if len(name)<=27-12:
             font=pygame.font.Font(None,125)
-        elif len(name)<=35-12:
+        elif len(name)<=31-12:
             font=pygame.font.Font(None,100)
         else:
             font=pygame.font.Font(None,60)
