@@ -103,6 +103,7 @@ while True:
     s=0
     flag = flags[s]
     buttons=buildButtons(flag.name, flags)
+    buttons+= [Button("Back", [size[0]/6, 950], .5)]
     
     points = 0
     score = Hud("Score: ", points, "right", [0,0])
@@ -144,6 +145,9 @@ while True:
                                 points += 1
                                 score.update(points)
                                 correct.play()
+                            elif button.name == "Back":
+                                mode="Start"
+                                break
                             else:
                                 wrong.play()
                             s+=1
@@ -151,6 +155,7 @@ while True:
                             try:
                                 flag = flags[s] 
                                 buttons=buildButtons(flag.name, flags)
+                                buttons+= [Button("Back", [size[0]/6, 950], .5)]
                             except:
                                 if points/len(flags) > winThreshold:
                                     print("Winner")
