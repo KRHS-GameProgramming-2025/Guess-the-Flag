@@ -16,6 +16,12 @@ win=pygame.mixer.Sound("Sound/Winning Game.mp3")
 winThreshold = .80
 clicked = False
 
+oPressed = False
+mPressed = False
+nPressed = False
+iPressed = False
+omni = False
+
 def getFlags(kind):
     path = "Art/" + kind.replace(" ", "")
     files = os.listdir(path)
@@ -85,6 +91,31 @@ while True:
                         if button.collidePoint(event.pos, clicked):
                             Version = button.name
                             mode = "Play"
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_o and not oPressed and not mPressed and not nPressed and not iPressed:
+                    oPressed = True
+                elif event.key == pygame.K_m and oPressed and not mPressed and not nPressed and not iPressed:
+                    mPressed = True
+                elif event.key == pygame.K_n and oPressed and mPressed and not nPressed and not iPressed:
+                    nPressed = True
+                elif event.key == pygame.K_i and oPressed and mPressed and nPressed and not iPressed:
+                    iPressed = True
+                    
+                else:
+                    oPressed = False
+                    mPressed = False
+                    nPressed = False
+                    iPressed = False
+                    
+        if oPressed and mPressed and nPressed and iPressed:
+            print("WHERE IS OMNI_MAN!!!!")
+            if not omni: buttons+=[Button("Invincible",[968/4*3,600], .5)]
+            omni=True
+            oPressed = False
+            mPressed = False
+            nPressed = False
+            iPressed = False
+                    
         
         screen.fill((181, 181, 181))  
         screen.blit(bgimage,bgrect)
