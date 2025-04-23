@@ -63,11 +63,13 @@ while True:
                Button("America Flags",[968/4, 300], .5),
                Button("Europe Flags",[968/4,400], .5),
                Button("WWII Flags", [968/4, 500], .5),
+               Button("UssrFlags",[968/4, 600], .5),
                
                Button("Asia Flags",[968/4*3, 200], .5),
                Button("Africa Flags", [968/4*3,300], .5),
                Button("Oceania Flags",[968/4*3,400], .5),
                Button("WWI Flags",[968/4*3,500], .5),
+              
                
                
                ]
