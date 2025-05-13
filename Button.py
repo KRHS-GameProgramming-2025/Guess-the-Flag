@@ -6,8 +6,10 @@ class Button():
             font=pygame.font.Font(None,125)
         elif len(name)<=31-12:
             font=pygame.font.Font(None,100)
-        else:
+        elif len(name)<=45-12:
             font=pygame.font.Font(None,60)
+        else:
+            font=pygame.font.Font(None,45)
         self.name = name
         
        
