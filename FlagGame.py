@@ -73,7 +73,9 @@ while True:
                
                
                ]
-    
+    pygame.mixer.music.load("Sound/Quirky Dog.mp3")
+    pygame.mixer.music.set_volume(5)
+    pygame.mixer.music.play() 
     while mode =="Start":
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
