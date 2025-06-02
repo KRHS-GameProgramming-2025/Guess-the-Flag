@@ -1,3 +1,5 @@
+
+
 import pygame, sys, math, random, os
 from FlagDisplay import*
 from Button import*
@@ -69,8 +71,8 @@ while True:
                Button("Africa Flags", [968/4*3,300], .5),
                Button("Oceania Flags",[968/4*3,400], .5),
                Button("WWI Flags",[968/4*3,500], .5),
-               Button("Organization Flags",[968/4*3,600], .5)
-               
+               Button("Organization Flags",[968/4*3,600], .5),
+               Button("China Flags",[968/4*3,700], .5)
                
                ]
     pygame.mixer.music.load("Sound/Quirky Dog.mp3")
