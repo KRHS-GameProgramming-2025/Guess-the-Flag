@@ -67,14 +67,14 @@ while True:
                Button("WWII Flags", [968/4, 500], .5),
                Button("USSR Flags",[968/4, 600], .5),
                
-               
                Button("Asia Flags",[968/4*3, 200], .5),
                Button("Africa Flags", [968/4*3,300], .5),
                Button("Oceania Flags",[968/4*3,400], .5),
                Button("WWI Flags",[968/4*3,500], .5),
                Button("Organization Flags",[968/4*3,600], .5),
-               Button("China Flags",[968/4*3,700], .5)
-               
+               Button("China Flags",[968/4*3,700], .5),
+            
+               Button("Credits", [968/4, 950],.5)
                ]
     pygame.mixer.music.load("Sound/Quirky Dog.mp3")
     pygame.mixer.music.set_volume(5)
@@ -96,8 +96,11 @@ while True:
                     clicked = False
                     for button in buttons:
                         if button.collidePoint(event.pos, clicked):
-                            Version = button.name
-                            mode = "Play"
+                            if button.name == "Credits":
+                                mode = "Credits"
+                            else:
+                                Version = button.name
+                                mode = "Play"
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_o and not oPressed and not mPressed and not nPressed and not iPressed:
                     oPressed = True
@@ -130,22 +133,23 @@ while True:
             screen.blit(button.image, button.rect)
         pygame.display.flip()
         clock.tick(60)
-        
-    flags = getFlags(Version)                                                                                
-    random.shuffle(flags)
-    flagNames = []
-    for flag in flags:
-        flagNames += [flag.name]                                                                              
-              
-
-    s=0
-    flag = flags[s]
-    buttons=buildButtons(flag.name, flags)
-    buttons+= [Button("Back", [size[0]/6, 950], .5)]
     
-    points = 0
-    score = Hud("Score: ", points, "right", [0,0])
-    progress = Hud ("/"+str(len(flags)), s, "left", [968,0])
+    if mode != "Credits":   
+        flags = getFlags(Version)                                                                                
+        random.shuffle(flags)
+        flagNames = []
+        for flag in flags:
+            flagNames += [flag.name]                                                                              
+                  
+
+        s=0
+        flag = flags[s]
+        buttons=buildButtons(flag.name, flags)
+        buttons+= [Button("Back", [size[0]/6, 950], .5)]
+        
+        points = 0
+        score = Hud("Score: ", points, "right", [0,0])
+        progress = Hud ("/"+str(len(flags)), s, "left", [968,0])
 
     while mode =="Play":
         for event in pygame.event.get():
@@ -272,3 +276,34 @@ while True:
             screen.blit(button.image, button.rect)
         pygame.display.flip()
         clock.tick(60)
+        
+    bgimage=pygame.image.load("Art/Screens/Credits.png")
+    bgrect=bgimage.get_rect()
+    buttons = [Button("Menu",[968/2,875], .5)]
+    
+    while mode =="Credits":
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit();
+            if event.type == pygame.MOUSEMOTION:
+                for button in buttons:
+                    button.collidePoint(event.pos, clicked)
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    clicked = True
+                    for button in buttons:
+                        button.collidePoint(event.pos, clicked)
+            if event.type == pygame.MOUSEBUTTONUP:
+                if event.button == 1:
+                    clicked = False
+                    for button in buttons:
+                        if button.collidePoint(event.pos, clicked):
+                            mode = "Start"
+        
+        screen.fill((181, 181, 181))  
+        screen.blit(bgimage,bgrect)
+        for button in buttons:
+            screen.blit(button.image, button.rect)
+        pygame.display.flip()
+        clock.tick(60)
+        
