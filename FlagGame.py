@@ -74,7 +74,7 @@ while True:
                Button("WWI Flags",[968/4*3,500], .5),
                Button("Organization Flags",[968/4*3,600], .5),
                Button("China Flags",[968/4*3,700], .5),
-               
+               Button("Germany Flags",[968/4*3, 800], .5),
             
                Button("Credits", [968/4, 950],.5)
                ]
